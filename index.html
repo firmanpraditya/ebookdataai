@@ -20,7 +20,6 @@
       --max: 1100px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
-      /* Responsive spacing scale */
       --gutter: clamp(14px, 3.8vw, 20px);
       --pad: clamp(16px, 3.2vw, 26px);
       --tap: 44px;
@@ -28,6 +27,7 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
       font-family: var(--font);
@@ -39,7 +39,13 @@
         linear-gradient(180deg, #05070c, var(--bg));
       overflow-x:hidden;
       -webkit-text-size-adjust: 100%;
+
+      /* FIX overlap: make stacking context */
+      position: relative;
+      isolation: isolate;
     }
+
+    /* Grid overlay (kept behind content) */
     body::before{
       content:"";
       position:fixed; inset:0;
@@ -49,22 +55,34 @@
       background-size: 46px 46px;
       mask-image: radial-gradient(650px 450px at 50% 10%, black 55%, transparent 75%);
       pointer-events:none;
-      opacity:.55;
+
+      /* FIX overlap */
+      z-index: 0;
+      opacity:.22;
     }
 
     img{ max-width:100%; height:auto; }
     a{ color:inherit; text-decoration:none; }
+
     .container{
       width: min(var(--max), calc(100% - (var(--gutter) * 2)));
       margin:0 auto;
+    }
+
+    /* Ensure main content above overlay */
+    .topbar, header, section, footer, .toast, .modal-backdrop, .wa-float{
+      position: relative;
+      z-index: 1;
     }
 
     /* Top bar */
     .topbar{
       position:sticky; top:0; z-index:30;
       backdrop-filter: blur(12px);
-      background: rgba(7,10,18,.55);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+
+      /* FIX overlap: make it more solid */
+      background: rgba(7,10,18,.85);
+      border-bottom: 1px solid rgba(255,255,255,.10);
       padding-top: env(safe-area-inset-top, 0px);
     }
     .topbar-inner{
@@ -132,6 +150,9 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
+
+      /* FIX overlap: isolate panel glow */
+      isolation: isolate;
     }
     .panel::after{
       content:"";
@@ -139,9 +160,16 @@
       background: radial-gradient(700px 300px at 30% 20%, rgba(255,176,0,.25), transparent 55%),
                   radial-gradient(600px 260px at 85% 30%, rgba(255,61,138,.2), transparent 55%);
       pointer-events:none;
-      opacity:.55;
+
+      /* FIX overlap */
+      z-index: 0;
+      opacity:.28;
     }
-    .panel-inner{ position:relative; z-index:1; padding: var(--pad); }
+    .panel-inner{
+      position:relative;
+      z-index:1;
+      padding: var(--pad);
+    }
 
     /* Hero */
     .hero{ padding: clamp(22px, 4.4vw, 44px) 0 24px; }
@@ -417,9 +445,7 @@
     }
     .toast.show{ opacity:1; transform: translateX(-50%) translateY(-6px); }
 
-    /* =========================
-       MODAL (Popup Cover + TOC)
-       ========================= */
+    /* Modal */
     .modal-backdrop{
       position:fixed; inset:0;
       background: rgba(0,0,0,.6);
@@ -444,6 +470,8 @@
       max-height: min(86dvh, 860px);
       display:flex;
       flex-direction:column;
+
+      isolation: isolate;
     }
     .modal-header{
       display:flex;
@@ -543,8 +571,22 @@
       color: rgba(234,240,255,.65);
     }
 
-    /* Extra small phone tuning */
-    @media (max-width: 420px){
+    /* MOBILE: make backgrounds slightly more opaque to avoid grid bleed */
+    @media (max-width: 520px){
+      .btn{
+        background: rgba(255,255,255,.10);
+        border-color: rgba(255,255,255,.18);
+      }
+      .card,
+      .li,
+      details,
+      .roadcard,
+      .cover-caption{
+        background: rgba(255,255,255,.08);
+        border-color: rgba(255,255,255,.14);
+      }
+      .panel{ background: rgba(255,255,255,.07); }
+
       .panel-inner{ padding: 16px; }
       .btn{ width: 100%; }
       .hero-actions .btn{ width: 100%; }
@@ -683,7 +725,7 @@
     </div>
   </section>
 
-  <!-- Roadmap with thumbnails -->
+  <!-- Roadmap -->
   <section id="roadmap">
     <div class="container">
       <div class="section-title">
@@ -713,9 +755,7 @@
               <div class="desc">Kuasai angka dasar & grafik sederhana. Mulai membangun cara berpikir kritis.</div>
             </div>
             <div class="actions">
-              <button class="btn btn-primary js-open-modal"
-                      type="button"
-                      data-level="1">Lihat Cover & Daftar Isi</button>
+              <button class="btn btn-primary js-open-modal" type="button" data-level="1">Lihat Cover & Daftar Isi</button>
               <a class="btn" id="btnOrderRoadmap" href="#">Pesan Level 1</a>
             </div>
           </div>
@@ -883,9 +923,7 @@
           </div>
 
           <div class="modal-footer">
-            <div class="smallnote" id="modalNote">
-              Tip: scroll daftar isi jika panjang.
-            </div>
+            <div class="smallnote" id="modalNote">Tip: scroll daftar isi jika panjang.</div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <a class="btn btn-primary" id="btnOrderFromModal" href="#" style="display:none;">Pesan Level 1 via WhatsApp</a>
               <button class="btn" type="button" id="btnCloseModal2">Tutup</button>
@@ -908,7 +946,6 @@
     const PRICE = "Rp 35.000";
 
     function buildWAmessage() {
-      const ref = window.location.href;
       return [
         "Halo kak, saya tertarik pesan:",
         PRODUCT_NAME,
@@ -962,9 +999,7 @@
       });
     });
 
-    // =========================
-    // MODAL DATA (TOC per level)
-    // =========================
+    // TOC per level
     const TOC = {
       1: [
         "Bagian Awal: Kata Pengantar",
@@ -993,21 +1028,9 @@
         "Penutup: Sekilas tentang Level 2",
         "Tentang Penulis"
       ],
-      2: [
-        "Sedang dalam proses produksi.",
-        "Cover tersedia sebagai teaser.",
-        "Daftar isi akan ditambahkan saat rilis."
-      ],
-      3: [
-        "Sedang dalam proses produksi.",
-        "Cover tersedia sebagai teaser.",
-        "Daftar isi akan ditambahkan saat rilis."
-      ],
-      4: [
-        "Sedang dalam proses produksi.",
-        "Cover tersedia sebagai teaser.",
-        "Daftar isi akan ditambahkan saat rilis."
-      ]
+      2: ["Sedang dalam proses produksi.", "Cover tersedia sebagai teaser.", "Daftar isi akan ditambahkan saat rilis."],
+      3: ["Sedang dalam proses produksi.", "Cover tersedia sebagai teaser.", "Daftar isi akan ditambahkan saat rilis."],
+      4: ["Sedang dalam proses produksi.", "Cover tersedia sebagai teaser.", "Daftar isi akan ditambahkan saat rilis."]
     };
 
     // Modal elements
@@ -1024,7 +1047,6 @@
       modalCoverImg.src = cover || "";
       modalCoverImg.alt = `Cover Level ${level}`;
 
-      // TOC render
       modalToc.innerHTML = "";
       (TOC[level] || ["Belum tersedia."]).forEach(item => {
         const li = document.createElement("li");
@@ -1032,7 +1054,6 @@
         modalToc.appendChild(li);
       });
 
-      // Show order button only for Level 1
       if (String(level) === "1") {
         btnOrderFromModal.style.display = "inline-flex";
         btnOrderFromModal.href = waLink();
@@ -1055,17 +1076,14 @@
     document.getElementById("btnCloseModal").addEventListener("click", closeModal);
     document.getElementById("btnCloseModal2").addEventListener("click", closeModal);
 
-    // Close on backdrop click
     modalBackdrop.addEventListener("click", (e) => {
       if (e.target === modalBackdrop) closeModal();
     });
 
-    // Close on ESC
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && modalBackdrop.classList.contains("open")) closeModal();
     });
 
-    // Bind open modal from thumbnails and buttons
     document.querySelectorAll(".thumb").forEach(el => {
       el.addEventListener("click", () => {
         const level = el.dataset.level;
