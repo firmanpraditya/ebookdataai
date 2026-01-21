@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DATA + AI DARI NOL — Soft Opening Level 1</title>
+  <meta name="description" content="Ebook Data + AI Dari Nol — Level 1 (Soft Opening Rp 35.000). Belajar analisa data untuk anak usia SMP. Tanpa ujian, 20–30 menit per hari." />
+  <style>
+    :root{
+      --bg:#070a12;
+      --card: rgba(255,255,255,.06);
+      --text:#eaf0ff;
+      --muted: rgba(234,240,255,.78);
+      --brand:#ffb000;
+      --brand2:#ff3d8a;
+      --ok:#2ee59d;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1100px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(255,176,0,.22), transparent 55%),
+        radial-gradient(900px 500px at 85% 15%, rgba(255,61,138,.18), transparent 55%),
+        radial-gradient(900px 800px at 55% 80%, rgba(61,154,255,.16), transparent 60%),
+        linear-gradient(180deg, #05070c, var(--bg));
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(650px 450px at 50% 10%, black 55%, transparent 75%);
+      pointer-events:none;
+      opacity:.55;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+
+    /* Top bar */
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(12px);
+      background: rgba(7,10,18,.55);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.3px;
+    }
+    .chip{
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex; gap:16px; align-items:center;
+      font-size:14px; color: var(--muted);
+    }
+    .nav a{ padding:8px 10px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+    @media (max-width: 920px){ .nav{ display:none; } }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(255,176,0,.95), rgba(255,61,138,.85));
+      border-color: rgba(255,176,0,.35);
+      color: #140a00;
+      box-shadow: 0 14px 35px rgba(255,176,0,.18);
+    }
+    .btn-primary:hover{ background: linear-gradient(135deg, rgba(255,190,40,.96), rgba(255,61,138,.9)); }
+    .btn-ghost{ background: transparent; border-color: rgba(255,255,255,.18); }
+    .btn-danger{ background: rgba(255,77,79,.14); border-color: rgba(255,77,79,.25); }
+    .btn-danger:hover{ background: rgba(255,77,79,.18); border-color: rgba(255,77,79,.35); }
+
+    /* Panels */
+    .panel{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 300px at 30% 20%, rgba(255,176,0,.25), transparent 55%),
+                  radial-gradient(600px 260px at 85% 30%, rgba(255,61,138,.2), transparent 55%);
+      pointer-events:none;
+      opacity:.55;
+    }
+    .panel-inner{ position:relative; z-index:1; padding: 26px; }
+
+    /* Hero */
+    .hero{ padding: 44px 0 24px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius: 999px;
+      background: rgba(255,176,0,.12);
+      border: 1px solid rgba(255,176,0,.25);
+      color: rgba(255,240,210,.95);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .badge .dot{
+      width:9px; height:9px; border-radius:99px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(255,176,0,.16);
+    }
+    h1{ margin: 14px 0 10px; font-size: clamp(28px, 3.2vw, 44px); line-height:1.08; }
+    .subtitle{ margin: 0 0 16px; color: var(--muted); font-size: 16px; line-height:1.55; max-width: 62ch; }
+    .highlight{ display:inline-block; padding: 2px 8px; border-radius: 10px; background: rgba(255,176,0,.12); border:1px solid rgba(255,176,0,.25); }
+
+    .price{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(255,176,0,.12);
+      border: 1px solid rgba(255,176,0,.22);
+    }
+    .price strong{ font-size: 30px; letter-spacing:.3px; color: rgba(255,236,210,.98); }
+    .price small{ color: rgba(255,240,220,.78); font-weight:600; }
+    .note{ color: rgba(255,240,220,.70); font-size: 13px; line-height:1.4; margin-top:10px; }
+
+    .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px; }
+
+    /* Cover */
+    .cover-wrap{ display:flex; flex-direction:column; gap:12px; height:100%; }
+    .cover{
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+      flex: 1;
+      min-height: 340px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cover img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .cover-placeholder{ padding: 26px; text-align:center; color: rgba(234,240,255,.85); }
+
+    .cover-caption{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+
+    /* Sections */
+    section{ padding: 28px 0; }
+    .section-title{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 14px;
+    }
+    .section-title h2{ margin:0; font-size: 20px; }
+    .section-title p{ margin:0; color: var(--muted); font-size: 13px; }
+
+    .grid-3{ display:grid; gap:14px; grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 920px){ .grid-3{ grid-template-columns: 1fr; } }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 40px rgba(0,0,0,.32);
+      padding: 18px;
+    }
+    .card h3{ margin: 0 0 8px; font-size: 16px; }
+    .card p{ margin:0; color: var(--muted); line-height:1.5; font-size: 14px; }
+
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .tick{
+      width:22px; height:22px; border-radius:8px;
+      background: rgba(46,229,157,.14);
+      border: 1px solid rgba(46,229,157,.25);
+      display:flex; align-items:center; justify-content:center;
+      flex:0 0 22px;
+      margin-top:1px;
+    }
+    .tick svg{ width:14px; height:14px; fill: var(--ok); }
+    .li span{ color: var(--muted); font-size: 14px; line-height:1.45; }
+
+    /* Roadmap with thumbnails */
+    .roadmap-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){ .roadmap-grid{ grid-template-columns: 1fr; } }
+
+    .roadcard{
+      display:flex;
+      gap:14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      align-items:stretch;
+    }
+    .thumb{
+      width: 92px;
+      min-width: 92px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+      cursor:pointer;
+      position:relative;
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+    }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      transition: transform .18s ease;
+    }
+    .thumb:hover img{ transform: scale(1.03); }
+    .thumb::after{
+      content:"Klik";
+      position:absolute; bottom:8px; right:8px;
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(234,240,255,.88);
+    }
+
+    .roadmeta{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .pill{
+      display:inline-flex;
+      font-weight:900;
+      font-size:12px;
+      padding:7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      white-space:nowrap;
+      width:fit-content;
+    }
+    .pill.ok{ border-color: rgba(46,229,157,.35); background: rgba(46,229,157,.12); }
+    .pill.lock{ border-color: rgba(255,176,0,.35); background: rgba(255,176,0,.12); }
+    .roadmeta b{ display:block; margin: 6px 0 4px; }
+    .roadmeta .desc{ color: var(--muted); font-size: 14px; line-height:1.45; }
+    .roadmeta .actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* FAQ */
+    .faq{ display:grid; gap:10px; }
+    details{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      color: rgba(234,240,255,.92);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin:10px 0 0; color: var(--muted); line-height:1.55; font-size:14px; }
+
+    /* Footer */
+    footer{
+      padding: 30px 0 40px;
+      color: rgba(234,240,255,.65);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.15);
+    }
+    .footer-grid{
+      display:flex; flex-wrap:wrap;
+      gap:14px; align-items:flex-start; justify-content:space-between;
+    }
+
+    /* Floating WA */
+    .wa-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:60;
+      width:60px;
+      height:60px;
+      border-radius:999px;
+      background: transparent;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      display:flex; align-items:center; justify-content:center;
+      border:none;
+      transition: transform .14s ease;
+    }
+    .wa-float:hover{ transform: translateY(-2px); }
+    .wa-float svg{ width:60px; height:60px; display:block; }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      background: rgba(10,15,26,.82);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: rgba(234,240,255,.92);
+      font-size: 13px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.45);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index:80;
+      backdrop-filter: blur(10px);
+    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(-6px); }
+
+    /* =========================
+       MODAL (Popup Cover + TOC)
+       ========================= */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.6);
+      z-index: 100;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .modal-backdrop.open{ display:flex; }
+
+    .modal{
+      width: min(980px, 100%);
+      border-radius: 22px;
+      background: rgba(10,15,26,.86);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      overflow:hidden;
+      backdrop-filter: blur(12px);
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modal-title{
+      display:flex; flex-direction:column;
+      gap:2px;
+      min-width: 0;
+    }
+    .modal-title b{
+      font-size: 14px;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .modal-title span{
+      font-size: 12px;
+      color: rgba(234,240,255,.70);
+    }
+    .modal-body{
+      display:grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 0;
+      min-height: min(72vh, 720px);
+    }
+    @media (max-width: 880px){
+      .modal-body{ grid-template-columns: 1fr; }
+    }
+    .modal-cover{
+      background: rgba(255,255,255,.04);
+      border-right: 1px solid rgba(255,255,255,.10);
+      padding: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    @media (max-width: 880px){
+      .modal-cover{ border-right:none; border-bottom: 1px solid rgba(255,255,255,.10); }
+    }
+    .modal-cover img{
+      width:100%;
+      height:100%;
+      max-height: 640px;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .modal-content{
+      padding: 14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .toc-box{
+      flex:1;
+      overflow:auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding: 12px 12px;
+    }
+    .toc-box h4{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .toc{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(234,240,255,.82);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .toc li{ margin: 6px 0; }
+    .modal-footer{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .smallnote{
+      font-size: 12px;
+      color: rgba(234,240,255,.65);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span style="display:inline-flex;align-items:center;gap:10px;">
+            <span style="width:10px;height:10px;border-radius:99px;background:var(--brand);box-shadow:0 0 0 5px rgba(255,176,0,.16)"></span>
+            <span>DATA + AI DARI NOL</span>
+          </span>
+          <span class="chip">Level 1 • Soft Opening</span>
+        </div>
+        <nav class="nav" aria-label="Navigasi">
+          <a href="#level1">Isi Level 1</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="btn btn-ghost" id="btnCopy" type="button" title="Salin link">Salin Link</button>
+          <a class="btn btn-primary" id="btnOrderTop" href="#" role="button">Pesan via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="badge"><span class="dot"></span> SOFT OPENING • RILIS LEVEL 1</div>
+            <h1>Belajar Data & AI untuk anak SMP — tanpa ribet, tanpa tekanan.</h1>
+            <p class="subtitle">
+              Ebook <span class="highlight">“Data + AI Dari Nol”</span> membantu anak membangun
+              cara berpikir <b>logis</b>, <b>kritis</b>, dan <b>tidak mudah tertipu informasi</b>.
+              Fokusnya bukan rumus, tapi <b>memahami cerita di balik angka</b>.
+            </p>
+
+            <div class="price">
+              <div>
+                <div style="font-weight:900;letter-spacing:.3px;">Harga Soft Opening</div>
+                <small>Level 1 (promo pembuka)</small>
+              </div>
+              <strong>Rp 35.000</strong>
+            </div>
+            <div class="note">*Harga khusus pembuka. Harga normal akan naik setelah masa soft opening.</div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" id="btnOrderHero" href="#">Pesan Sekarang</a>
+              <a class="btn" href="#level1">Lihat Materi Level 1</a>
+              <a class="btn btn-ghost" href="#roadmap">Lihat Roadmap Level 2–4</a>
+            </div>
+
+            <div style="margin-top:18px; display:grid; gap:10px;">
+              <div class="li">
+                <div class="tick" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.0 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+                </div>
+                <span><b>Belajar 10 hari</b> (20–30 menit per hari) • bisa diulang sesuai ritme anak</span>
+              </div>
+              <div class="li">
+                <div class="tick" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.0 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+                </div>
+                <span><b>Tanpa ujian</b> • fokus membangun pemahaman dan berpikir kritis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-inner cover-wrap">
+            <div class="cover" aria-label="Cover Ebook">
+              <!-- Taruh cover Level 1 di folder yang sama, misalnya: FH Praditya 1.png -->
+              <img src="FH Praditya 1.png" alt="Cover Data + AI Dari Nol Level 1" onerror="this.style.display='none'; this.parentElement.querySelector('.cover-placeholder').style.display='block';" />
+              <div class="cover-placeholder" style="display:none;">
+                <div style="font-size:14px; opacity:.9; margin-bottom:6px;">Tempat Cover Level 1</div>
+                <div style="font-size:22px; font-weight:900;">DATA + AI DARI NOL</div>
+                <div style="margin-top:10px; color:rgba(234,240,255,.75); line-height:1.5;">
+                  Pastikan file cover ada di folder yang sama dan nama file sesuai.
+                </div>
+              </div>
+            </div>
+
+            <div class="cover-caption">
+              <span style="font-size:18px;line-height:1;">📘</span>
+              <div>
+                <b>Level 1 — Fondasi Dasar</b><br/>
+                Kuasai angka dasar & grafik sederhana. Cocok untuk SMP (kelas 7–9), orang tua, dan guru.
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" id="btnOrderSide" href="#">Pesan via WhatsApp</a>
+              <a class="btn" href="#roadmap">Lihat Roadmap + Thumbnail</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Level 1 -->
+  <section id="level1">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Isi Level 1 (Yang Anda Dapatkan)</h2>
+          <p>Ringkas, jelas, dan fokus: dari angka ke cara berpikir.</p>
+        </div>
+        <span class="chip">Ready • Promo Rp 35.000</span>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Fondasi Data</h3>
+          <p>Mengenal data di sekitar, mencatat, tabel, dan grafik sederhana.</p>
+        </div>
+        <div class="card">
+          <h3>Mean, Median, Modus</h3>
+          <p>Kapan dipakai dan apa artinya untuk cerita data.</p>
+        </div>
+        <div class="card">
+          <h3>Berpikir Seperti AI</h3>
+          <p>Tanpa coding: AI belajar dari data, bisa salah, manusia tetap bertanggung jawab.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap with thumbnails -->
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>Series Roadmap (Klik Cover untuk Lihat Detail)</h2>
+          <p>Thumbnail cover → klik untuk melihat cover + daftar isi (scroll).</p>
+        </div>
+        <span class="chip">Level 2–4 sedang produksi</span>
+      </div>
+
+      <div class="roadmap-grid">
+        <!-- Level 1 -->
+        <div class="roadcard">
+          <div class="thumb"
+               role="button"
+               tabindex="0"
+               data-level="1"
+               data-title="Level 1 — Fondasi Dasar Data + AI"
+               data-status="READY • Soft Opening"
+               data-cover="FH Praditya 1.png">
+            <img src="FH Praditya 1.png" alt="Cover Level 1" />
+          </div>
+          <div class="roadmeta">
+            <div>
+              <span class="pill ok">LEVEL 1 • READY</span>
+              <b>Fondasi Dasar Data + AI</b>
+              <div class="desc">Kuasai angka dasar & grafik sederhana. Mulai membangun cara berpikir kritis.</div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary js-open-modal"
+                      type="button"
+                      data-level="1">Lihat Cover & Daftar Isi</button>
+              <a class="btn" id="btnOrderRoadmap" href="#">Pesan Level 1</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 2 -->
+        <div class="roadcard">
+          <div class="thumb"
+               role="button"
+               tabindex="0"
+               data-level="2"
+               data-title="Level 2 — Trik Membuat AI Bekerja Otomatis Untuk Membantumu"
+               data-status="SEDANG PRODUKSI"
+               data-cover="FH Praditya 2 - edit.png">
+            <img src="FH Praditya 2 - edit.png" alt="Cover Level 2" />
+          </div>
+          <div class="roadmeta">
+            <div>
+              <span class="pill lock">LEVEL 2 • PRODUKSI</span>
+              <b>AI Bekerja Otomatis Untuk Membantumu</b>
+              <div class="desc">Roadmap lanjutan. Akan dirilis bertahap.</div>
+            </div>
+            <div class="actions">
+              <button class="btn js-open-modal" type="button" data-level="2">Lihat Cover</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 3 -->
+        <div class="roadcard">
+          <div class="thumb"
+               role="button"
+               tabindex="0"
+               data-level="3"
+               data-title="Level 3 — Buat Visual Keren yang Bikin Orang Kagum"
+               data-status="SEDANG PRODUKSI"
+               data-cover="FH Praditya 3.png">
+            <img src="FH Praditya 3.png" alt="Cover Level 3" />
+          </div>
+          <div class="roadmeta">
+            <div>
+              <span class="pill lock">LEVEL 3 • PRODUKSI</span>
+              <b>Visualisasi Data yang Meyakinkan</b>
+              <div class="desc">Belajar menyajikan data dengan visual yang menarik.</div>
+            </div>
+            <div class="actions">
+              <button class="btn js-open-modal" type="button" data-level="3">Lihat Cover</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 4 -->
+        <div class="roadcard">
+          <div class="thumb"
+               role="button"
+               tabindex="0"
+               data-level="4"
+               data-title="Level 4 — Selesai Tantangan & Bongkar Rahasia Data"
+               data-status="SEDANG PRODUKSI"
+               data-cover="FH Praditya 4.png">
+            <img src="FH Praditya 4.png" alt="Cover Level 4" />
+          </div>
+          <div class="roadmeta">
+            <div>
+              <span class="pill lock">LEVEL 4 • PRODUKSI</span>
+              <b>Tantangan Data & Keputusan Nyata</b>
+              <div class="desc">Tahap lanjutan. Akan dirilis bertahap.</div>
+            </div>
+            <div class="actions">
+              <button class="btn js-open-modal" type="button" data-level="4">Lihat Cover</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <b>Catatan:</b>
+        <div style="color:var(--muted); margin-top:6px; line-height:1.5;">
+          Level 2–4 ditampilkan sebagai roadmap (informasi), bukan untuk dijual sekarang.
+          Pembeli Level 1 bisa dapat update rilis lebih dulu.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2>FAQ</h2>
+          <p>Supaya pembeli cepat yakin tanpa banyak chat bolak-balik.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Ini cocok untuk anak kelas berapa?</summary>
+          <p>Cocok untuk <b>SMP kelas 7–9</b>. Namun juga pas untuk orang tua/guru yang ingin memahami dasar data & AI dengan bahasa ringan.</p>
+        </details>
+        <details>
+          <summary>Apakah harus jago matematika?</summary>
+          <p>Tidak. Ebook ini fokus pada cara berpikir. Materi angka dibuat sederhana dan dekat dengan kehidupan sehari-hari.</p>
+        </details>
+        <details>
+          <summary>Apakah ada coding?</summary>
+          <p>Tidak ada coding. Ada latihan praktik ringan menggunakan <b>Google Sheets</b> dan <b>Canva</b> (alat gratis).</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="font-weight:900; margin-bottom:6px;">FH Praditya</div>
+          <div>Praktisi Data & Teknologi • Freelance Data Consultant • Trainer</div>
+          <div style="margin-top:10px; max-width:90ch;">
+            <i>“Teknologi berkembang cepat, tetapi kemampuan berpikir kritis harus tumbuh lebih dulu.”</i>
+          </div>
+        </div>
+        <div style="display:grid; gap:8px;">
+          <a class="btn btn-primary" id="btnOrderFooter" href="#">Pesan via WhatsApp</a>
+          <a class="btn" href="#roadmap">Lihat Roadmap</a>
+        </div>
+      </div>
+      <div style="margin-top:18px; color:rgba(234,240,255,.55);">
+        © <span id="year"></span> FH Praditya. Semua hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="15" fill="#25D366"></circle>
+      <path fill="#ffffff" d="M24.15 7.85A11.43 11.43 0 0 0 16.03 4.5C9.73 4.5 4.6 9.62 4.6 15.92c0 2.01.53 3.97 1.54 5.7L4.5 27.5l6.08-1.6a11.37 11.37 0 0 0 5.45 1.39h.01c6.3 0 11.42-5.12 11.42-11.42 0-3.05-1.19-5.91-3.31-8.02zm-8.12 17.5h-.01c-1.69 0-3.36-.45-4.81-1.31l-.34-.2-3.6.95.96-3.5-.22-.36a9.92 9.92 0 0 1-1.53-5.01c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.9 6.98c0 5.46-4.44 9.9-9.9 9.9zm5.74-7.39c-.31-.16-1.82-.9-2.1-1-.28-.1-.49-.16-.7.16-.2.31-.8 1-.98 1.2-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.48-1.54-.92-.82-1.55-1.84-1.73-2.16-.18-.31-.02-.48.14-.64.14-.14.31-.36.46-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.69-.96-2.32-.25-.6-.5-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.06-1.08 2.58 0 1.52 1.11 2.98 1.26 3.19.16.2 2.19 3.34 5.31 4.68.74.32 1.32.51 1.77.65.74.23 1.42.2 1.96.12.6-.09 1.82-.74 2.07-1.43.25-.7.25-1.3.18-1.43-.08-.12-.28-.2-.6-.36z"/>
+    </svg>
+  </a>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="modal-title">
+          <b id="modalTitle">Judul</b>
+          <span id="modalStatus">Status</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button class="btn btn-danger" type="button" id="btnCloseModal">Tutup</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-cover">
+          <img id="modalCoverImg" src="" alt="Cover Ebook" />
+        </div>
+
+        <div class="modal-content">
+          <div class="toc-box">
+            <h4>Daftar Isi</h4>
+            <ol class="toc" id="modalToc">
+              <!-- diisi lewat JS -->
+            </ol>
+          </div>
+
+          <div class="modal-footer">
+            <div class="smallnote" id="modalNote">
+              Tip: scroll daftar isi jika panjang.
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" id="btnOrderFromModal" href="#" style="display:none;">Pesan Level 1 via WhatsApp</a>
+              <button class="btn" type="button" id="btnCloseModal2">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // =========================
+    // CONFIG
+    // =========================
+    const WHATSAPP_NUMBER = "6285743178455"; // ganti: 62xxxxxxxxxxx
+    const PRODUCT_NAME = "Ebook DATA + AI DARI NOL — Level 1";
+    const PRICE = "Rp 35.000";
+
+    function buildWAmessage() {
+      const ref = window.location.href;
+      return [
+        "Halo kak, saya tertarik pesan:",
+        PRODUCT_NAME,
+        `Harga soft opening: ${PRICE}`,
+        "",
+        "Boleh info cara pembayarannya dan cara menerima ebook-nya?",
+        ""
+      ].join("\n");
+    }
+    function waLink() {
+      const msg = encodeURIComponent(buildWAmessage());
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    }
+
+    // Wire order buttons (global)
+    ["btnOrderTop","btnOrderHero","btnOrderSide","btnOrderRoadmap","btnOrderFooter","waFloat"]
+      .forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute("href", waLink());
+      });
+
+    // Copy link + toast
+    const toast = document.getElementById("toast");
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+    document.getElementById("btnCopy")?.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        showToast("Link berhasil disalin ✅");
+      }catch(e){
+        showToast("Gagal menyalin link. Salin manual dari address bar.");
+      }
+    });
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href");
+        if (!href || href === "#") return;
+        const target = document.querySelector(href);
+        if (target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:"smooth", block:"start"});
+        }
+      });
+    });
+
+    // =========================
+    // MODAL DATA (TOC per level)
+    // =========================
+    const TOC = {
+      1: [
+        "Bagian Awal: Kata Pengantar",
+        "Setelah Menyelesaikan Level 1, Kamu Bisa",
+        "Cara Menggunakan Ebook Ini",
+        "Catatan untuk Orang Tua & Guru",
+        "Tujuan Belajar",
+        "Peta Belajar 10 Hari",
+        "Materi Inti Level 1: Hari 1 — Mengenal Data di Sekitar Kita",
+        "Hari 2 — Jenis-Jenis Data Sederhana",
+        "Hari 3 — Mengelompokkan & Mencatat Data",
+        "Hari 4 — Mengenal Tabel Data",
+        "Hari 5 — Mengenal Grafik Sederhana",
+        "Hari 6 — Belajar Mean, Modus, Median",
+        "Hari 7 — Belajar Pola",
+        "Hari 8 — Belajar Mengambil Kesimpulan Data",
+        "Hari 9 — Bagaimana Cara Kerja AI Belajar",
+        "Hari 10 — Peran Manusia di Era Data & AI",
+        "Lab Praktik 01 — Membuat Tabel di Google Sheets",
+        "Lab Praktik 02 — Membuat Grafik di Google Sheets",
+        "Lab Praktik 03 — Membuat Grafik dengan Canva",
+        "Lab Praktik 04 — Menarik Kesimpulan dari Data",
+        "Lab Praktik 05 — Kesimpulan Bisa Salah",
+        "Lab Praktik 06 — Berpikir Seperti AI (tanpa coding)",
+        "Lab Praktik 07 — Kenapa Kualitas Data Penting",
+        "Penutup: Sekilas tentang Level 2",
+        "Tentang Penulis"
+      ],
+      2: [
+        "Sedang dalam proses produksi.",
+        "Cover tersedia sebagai teaser.",
+        "Daftar isi akan ditambahkan saat rilis."
+      ],
+      3: [
+        "Sedang dalam proses produksi.",
+        "Cover tersedia sebagai teaser.",
+        "Daftar isi akan ditambahkan saat rilis."
+      ],
+      4: [
+        "Sedang dalam proses produksi.",
+        "Cover tersedia sebagai teaser.",
+        "Daftar isi akan ditambahkan saat rilis."
+      ]
+    };
+
+    // Modal elements
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalStatus = document.getElementById("modalStatus");
+    const modalCoverImg = document.getElementById("modalCoverImg");
+    const modalToc = document.getElementById("modalToc");
+    const btnOrderFromModal = document.getElementById("btnOrderFromModal");
+
+    function openModal(level, title, status, cover){
+      modalTitle.textContent = title || `Level ${level}`;
+      modalStatus.textContent = status || "";
+      modalCoverImg.src = cover || "";
+      modalCoverImg.alt = `Cover Level ${level}`;
+
+      // TOC render
+      modalToc.innerHTML = "";
+      (TOC[level] || ["Belum tersedia."]).forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        modalToc.appendChild(li);
+      });
+
+      // Show order button only for Level 1
+      if (String(level) === "1") {
+        btnOrderFromModal.style.display = "inline-flex";
+        btnOrderFromModal.href = waLink();
+      } else {
+        btnOrderFromModal.style.display = "none";
+        btnOrderFromModal.removeAttribute("href");
+      }
+
+      modalBackdrop.classList.add("open");
+      modalBackdrop.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modalBackdrop.classList.remove("open");
+      modalBackdrop.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("btnCloseModal").addEventListener("click", closeModal);
+    document.getElementById("btnCloseModal2").addEventListener("click", closeModal);
+
+    // Close on backdrop click
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modalBackdrop.classList.contains("open")) closeModal();
+    });
+
+    // Bind open modal from thumbnails and buttons
+    document.querySelectorAll(".thumb").forEach(el => {
+      el.addEventListener("click", () => {
+        const level = el.dataset.level;
+        openModal(level, el.dataset.title, el.dataset.status, el.dataset.cover);
+      });
+      el.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          const level = el.dataset.level;
+          openModal(level, el.dataset.title, el.dataset.status, el.dataset.cover);
+        }
+      });
+    });
+
+    document.querySelectorAll(".js-open-modal").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const level = btn.dataset.level;
+        // cari thumb yg sesuai level untuk ambil data lengkap
+        const thumb = document.querySelector(`.thumb[data-level="${level}"]`);
+        if (thumb) openModal(level, thumb.dataset.title, thumb.dataset.status, thumb.dataset.cover);
+        else openModal(level, `Level ${level}`, "", "");
+      });
+    });
+
+    if (WHATSAPP_NUMBER === "6281234567890") {
+      console.warn("⚠️ Ganti WHATSAPP_NUMBER agar tombol WhatsApp mengarah ke nomor Anda.");
+    }
+  </script>
+</body>
+</html>
