@@ -19,7 +19,13 @@
       --radius2: 26px;
       --max: 1100px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+
+      /* Responsive spacing scale */
+      --gutter: clamp(14px, 3.8vw, 20px);
+      --pad: clamp(16px, 3.2vw, 26px);
+      --tap: 44px;
     }
+
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
@@ -32,6 +38,7 @@
         radial-gradient(900px 800px at 55% 80%, rgba(61,154,255,.16), transparent 60%),
         linear-gradient(180deg, #05070c, var(--bg));
       overflow-x:hidden;
+      -webkit-text-size-adjust: 100%;
     }
     body::before{
       content:"";
@@ -44,8 +51,13 @@
       pointer-events:none;
       opacity:.55;
     }
+
+    img{ max-width:100%; height:auto; }
     a{ color:inherit; text-decoration:none; }
-    .container{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+    .container{
+      width: min(var(--max), calc(100% - (var(--gutter) * 2)));
+      margin:0 auto;
+    }
 
     /* Top bar */
     .topbar{
@@ -53,15 +65,18 @@
       backdrop-filter: blur(12px);
       background: rgba(7,10,18,.55);
       border-bottom: 1px solid rgba(255,255,255,.08);
+      padding-top: env(safe-area-inset-top, 0px);
     }
     .topbar-inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
+      padding: 12px 0;
       gap:12px;
+      flex-wrap: wrap;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
       font-weight:800; letter-spacing:.3px;
+      min-width: 0;
     }
     .chip{
       font-size:12px;
@@ -69,6 +84,7 @@
       border:1px solid rgba(255,255,255,.14);
       border-radius:999px;
       background: rgba(255,255,255,.06);
+      white-space:nowrap;
     }
     .nav{
       display:flex; gap:16px; align-items:center;
@@ -83,6 +99,7 @@
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
       padding: 12px 16px;
+      min-height: var(--tap);
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
@@ -92,6 +109,7 @@
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       user-select:none;
       white-space:nowrap;
+      font-size: 14px;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22); }
     .btn:active{ transform: translateY(0px) scale(.99); }
@@ -123,17 +141,19 @@
       pointer-events:none;
       opacity:.55;
     }
-    .panel-inner{ position:relative; z-index:1; padding: 26px; }
+    .panel-inner{ position:relative; z-index:1; padding: var(--pad); }
 
     /* Hero */
-    .hero{ padding: 44px 0 24px; }
+    .hero{ padding: clamp(22px, 4.4vw, 44px) 0 24px; }
     .hero-grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 22px;
       align-items:stretch;
     }
-    @media (max-width: 920px){ .hero-grid{ grid-template-columns: 1fr; } }
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
 
     .badge{
       display:inline-flex; align-items:center; gap:8px;
@@ -151,8 +171,8 @@
       background: var(--brand);
       box-shadow: 0 0 0 4px rgba(255,176,0,.16);
     }
-    h1{ margin: 14px 0 10px; font-size: clamp(28px, 3.2vw, 44px); line-height:1.08; }
-    .subtitle{ margin: 0 0 16px; color: var(--muted); font-size: 16px; line-height:1.55; max-width: 62ch; }
+    h1{ margin: 14px 0 10px; font-size: clamp(26px, 5.2vw, 44px); line-height:1.08; }
+    .subtitle{ margin: 0 0 16px; color: var(--muted); font-size: clamp(14px, 2.8vw, 16px); line-height:1.55; max-width: 62ch; }
     .highlight{ display:inline-block; padding: 2px 8px; border-radius: 10px; background: rgba(255,176,0,.12); border:1px solid rgba(255,176,0,.25); }
 
     .price{
@@ -161,8 +181,9 @@
       border-radius: 18px;
       background: rgba(255,176,0,.12);
       border: 1px solid rgba(255,176,0,.22);
+      flex-wrap: wrap;
     }
-    .price strong{ font-size: 30px; letter-spacing:.3px; color: rgba(255,236,210,.98); }
+    .price strong{ font-size: clamp(24px, 6vw, 30px); letter-spacing:.3px; color: rgba(255,236,210,.98); }
     .price small{ color: rgba(255,240,220,.78); font-weight:600; }
     .note{ color: rgba(255,240,220,.70); font-size: 13px; line-height:1.4; margin-top:10px; }
 
@@ -176,7 +197,7 @@
       overflow:hidden;
       background: rgba(255,255,255,.04);
       flex: 1;
-      min-height: 340px;
+      min-height: clamp(220px, 52vw, 340px);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -200,6 +221,7 @@
     .section-title{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
     }
     .section-title h2{ margin:0; font-size: 20px; }
     .section-title p{ margin:0; color: var(--muted); font-size: 13px; }
@@ -252,6 +274,10 @@
       border: 1px solid rgba(255,255,255,.10);
       align-items:stretch;
     }
+    @media (max-width: 520px){
+      .roadcard{ flex-direction: column; }
+    }
+
     .thumb{
       width: 92px;
       min-width: 92px;
@@ -262,7 +288,18 @@
       cursor:pointer;
       position:relative;
       box-shadow: 0 12px 26px rgba(0,0,0,.25);
+      aspect-ratio: 3 / 4;
     }
+    @media (max-width: 520px){
+      .thumb{
+        width: 100%;
+        min-width: 0;
+        max-width: 320px;
+        margin-right: auto;
+        aspect-ratio: 3 / 4;
+      }
+    }
+
     .thumb img{
       width:100%; height:100%;
       object-fit: cover;
@@ -287,6 +324,7 @@
       flex-direction:column;
       justify-content:space-between;
       gap:10px;
+      min-width: 0;
     }
     .pill{
       display:inline-flex;
@@ -324,7 +362,7 @@
 
     /* Footer */
     footer{
-      padding: 30px 0 40px;
+      padding: 30px 0 calc(40px + env(safe-area-inset-bottom, 0px));
       color: rgba(234,240,255,.65);
       font-size: 13px;
       border-top: 1px solid rgba(255,255,255,.08);
@@ -338,8 +376,8 @@
     /* Floating WA */
     .wa-float{
       position:fixed;
-      right:18px;
-      bottom:18px;
+      right: max(14px, env(safe-area-inset-right, 0px));
+      bottom: max(14px, env(safe-area-inset-bottom, 0px));
       z-index:60;
       width:60px;
       height:60px;
@@ -352,12 +390,16 @@
     }
     .wa-float:hover{ transform: translateY(-2px); }
     .wa-float svg{ width:60px; height:60px; display:block; }
+    @media (max-width: 420px){
+      .wa-float{ width:54px; height:54px; }
+      .wa-float svg{ width:54px; height:54px; }
+    }
 
     /* Toast */
     .toast{
       position: fixed;
       left: 50%;
-      bottom: 22px;
+      bottom: calc(18px + env(safe-area-inset-bottom, 0px));
       transform: translateX(-50%);
       background: rgba(10,15,26,.82);
       border: 1px solid rgba(255,255,255,.14);
@@ -371,6 +413,7 @@
       transition: opacity .18s ease, transform .18s ease;
       z-index:80;
       backdrop-filter: blur(10px);
+      max-width: min(92vw, 560px);
     }
     .toast.show{ opacity:1; transform: translateX(-50%) translateY(-6px); }
 
@@ -384,7 +427,8 @@
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
+      padding: var(--gutter);
+      padding-bottom: calc(var(--gutter) + env(safe-area-inset-bottom, 0px));
     }
     .modal-backdrop.open{ display:flex; }
 
@@ -396,6 +440,10 @@
       box-shadow: 0 24px 80px rgba(0,0,0,.55);
       overflow:hidden;
       backdrop-filter: blur(12px);
+
+      max-height: min(86dvh, 860px);
+      display:flex;
+      flex-direction:column;
     }
     .modal-header{
       display:flex;
@@ -404,6 +452,7 @@
       gap:12px;
       padding: 14px 16px;
       border-bottom: 1px solid rgba(255,255,255,.10);
+      flex: 0 0 auto;
     }
     .modal-title{
       display:flex; flex-direction:column;
@@ -425,7 +474,8 @@
       display:grid;
       grid-template-columns: 0.9fr 1.1fr;
       gap: 0;
-      min-height: min(72vh, 720px);
+      min-height: 0;
+      flex: 1 1 auto;
     }
     @media (max-width: 880px){
       .modal-body{ grid-template-columns: 1fr; }
@@ -437,6 +487,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      min-height: 0;
     }
     @media (max-width: 880px){
       .modal-cover{ border-right:none; border-bottom: 1px solid rgba(255,255,255,.10); }
@@ -444,7 +495,7 @@
     .modal-cover img{
       width:100%;
       height:100%;
-      max-height: 640px;
+      max-height: 46dvh;
       object-fit: contain;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.12);
@@ -455,14 +506,17 @@
       display:flex;
       flex-direction:column;
       gap:12px;
+      min-height: 0;
     }
     .toc-box{
       flex:1;
       overflow:auto;
+      -webkit-overflow-scrolling: touch;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
       padding: 12px 12px;
+      min-height: 0;
     }
     .toc-box h4{
       margin: 0 0 10px;
@@ -488,6 +542,13 @@
       font-size: 12px;
       color: rgba(234,240,255,.65);
     }
+
+    /* Extra small phone tuning */
+    @media (max-width: 420px){
+      .panel-inner{ padding: 16px; }
+      .btn{ width: 100%; }
+      .hero-actions .btn{ width: 100%; }
+    }
   </style>
 </head>
 
@@ -508,7 +569,7 @@
           <a href="#roadmap">Roadmap</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <div style="display:flex;gap:10px;align-items:center;">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
           <button class="btn btn-ghost" id="btnCopy" type="button" title="Salin link">Salin Link</button>
           <a class="btn btn-primary" id="btnOrderTop" href="#" role="button">Pesan via WhatsApp</a>
         </div>
@@ -565,8 +626,8 @@
         <div class="panel">
           <div class="panel-inner cover-wrap">
             <div class="cover" aria-label="Cover Ebook">
-              <!-- Taruh cover Level 1 di folder yang sama, misalnya: FH Praditya 1.png -->
-              <img src="images/FHPraditya1.png" alt="Cover Data + AI Dari Nol Level 1" onerror="this.style.display='none'; this.parentElement.querySelector('.cover-placeholder').style.display='block';" />
+              <img src="images/FHPraditya1.png" alt="Cover Data + AI Dari Nol Level 1"
+                   onerror="this.style.display='none'; this.parentElement.querySelector('.cover-placeholder').style.display='block';" />
               <div class="cover-placeholder" style="display:none;">
                 <div style="font-size:14px; opacity:.9; margin-bottom:6px;">Tempat Cover Level 1</div>
                 <div style="font-size:22px; font-weight:900;">DATA + AI DARI NOL</div>
@@ -818,9 +879,7 @@
         <div class="modal-content">
           <div class="toc-box">
             <h4>Daftar Isi</h4>
-            <ol class="toc" id="modalToc">
-              <!-- diisi lewat JS -->
-            </ol>
+            <ol class="toc" id="modalToc"></ol>
           </div>
 
           <div class="modal-footer">
@@ -1024,7 +1083,6 @@
     document.querySelectorAll(".js-open-modal").forEach(btn => {
       btn.addEventListener("click", () => {
         const level = btn.dataset.level;
-        // cari thumb yg sesuai level untuk ambil data lengkap
         const thumb = document.querySelector(`.thumb[data-level="${level}"]`);
         if (thumb) openModal(level, thumb.dataset.title, thumb.dataset.status, thumb.dataset.cover);
         else openModal(level, `Level ${level}`, "", "");
@@ -1037,5 +1095,3 @@
   </script>
 </body>
 </html>
-
-
